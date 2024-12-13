@@ -1,4 +1,4 @@
-## Multi-Tier Architecture with AWS CloudFormation
+## Multi-Tier Architecture using AWS CloudFormation
 
 This repository contains a CloudFormation template to deploy a three-tier architecture on AWS. The setup includes a web tier, an application tier, and a database tier with proper networking and security configurations.
 

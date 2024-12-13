@@ -21,3 +21,35 @@ Resources:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
 
+
+
+    PublicSubnet:
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref Vpc
+        CidrBlock: 10.0.1.0/24 
+        MapPublicIpOnLaunch: True
+        AvailabilityZone: !Select [ 0, !GetAZs "" ]
+        Tags:
+          - Key: Name
+            Value: PublicSubnet
+    
+    PublicRouteTable:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcI: !Ref VPC
+
+    PublicRoute:
+      Type: AWS::EC2::Route
+      Properties:
+        RouteTableId: !Ref PublicRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId: !Ref InternetGateway
+
+    PublicSubnetRouteTableAssociation:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+        SubnetId: !Ref PublicSubnet
+        RouteTableId: !Ref PublicRouteTable
+
+

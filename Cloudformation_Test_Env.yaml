@@ -108,3 +108,23 @@ Resources:
             FromPort: 3306
             ToPort: 3306
             SourceSecurityGroupId: !Ref AppSecurityGroup
+
+    DBInstance:
+      Type: AWS::RDS::DBInstance
+      Properties:
+        AllocatedStorage: 20
+        DBInstanceClass: db.t2.micro
+        Engine: MySQL
+        MasterUsername: admin
+        MasterUserPassword: admin1234
+        DBSubnetGroupName: !Ref DBSubnetGroup
+        VPCSecurityGroups:
+          - !Ref DBSecurityGroup
+        DeletionPolicy: Retain
+
+    DBSubnetGroup:
+      Type: AWS::RDS::DBSubnetGroup
+      Properties:
+        DBSubnetGroupDescription: Subnet group for RDS instance
+        SubnetIds:
+          - !Ref DBSubnet
